@@ -68,6 +68,14 @@ message_rect = message.get_rect(center=((cell_number * cell_size) // 2, (cell_nu
 bg = pygame.image.load("PygameTutorial_3_0/AnimatedStreet.png")
 bg = pygame.transform.scale(bg, (cell_size * cell_number, cell_number * cell_size))
 bg_rect = bg.get_rect(topleft = (0, 0))
+musics = [
+    "PygameTutorial_3_0/background.wav",
+    "PygameTutorial_3_0/crash.wav"
+]
+
+current_track = 0
+pygame.mixer.music.load(musics[current_track])
+pygame.mixer.music.play(-1)
 
 
 done = False
@@ -113,6 +121,9 @@ while not done:
 
 
     if car.colliderect(enem) or car.left > 500 or car.right < 100:
+        current_track += 1
+        pygame.mixer.music.load(musics[current_track])
+        pygame.mixer.music.play()
         screen.fill(White)
         screen.blit(message, message_rect)
         pygame.display.flip()
